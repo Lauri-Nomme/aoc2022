@@ -33,9 +33,6 @@ let blocked = c => {
 		return true;
 	}
 	++tests;
-	if (tests % 100000 == 0) {
-		console.log('%', tests);
-	}
 	for (t of input) {
 		let d = md(c, t[0]);
 		if (d <= t[2]) {
@@ -45,35 +42,32 @@ let blocked = c => {
 	return false;
 };
 
-for (t of input) {
-	console.log('check', t);
-	let s = t[0];
-	let d = t[2];
-	console.log(s, t);
-	for (let y = s[1] - d - 1, x = s[0]; y <= s[1] && x >= xmin; ++y, --x) {
-		if (!blocked([x, y])) {
-			console.log(x, y);
-			process.exit(1);
+let solve = _ => {
+		for (t of input) {
+			let s = t[0];
+			let d = t[2];
+			for (let y = s[1] - d - 1, x = s[0]; y <= s[1] && x >= xmin; ++y, --x) {
+				if (!blocked([x, y])) {
+					return [x, y];
+				}
+			}
+			for (let y = s[1] + d + 1, x = s[0]; y > s[1] && x >= xmin; --y, --x) {
+				if (!blocked([x, y])) {
+					return [x, y];
+				}
+			}
+			for (let y = s[1] - d - 1, x = s[0]; y <= s[1] && x <= xmax; ++y, ++x) {
+				if (!blocked([x, y])) {
+					return [x, y];
+				}
+			}
+			for (let y = s[1] + d + 1, x = s[0]; y > s[1] && x <= xmax; --y, ++x) {
+				if (!blocked([x, y])) {
+					return [x, y];
+				}
+			}
 		}
-	}
-	for (let y = s[1] + d + 1, x = s[0]; y > s[1] && x >= xmin; --y, --x) {
-		if (!blocked([x, y])) {
-			console.log(x, y);
-			process.exit(1);
-		}
-	}
-	for (let y = s[1] - d - 1, x = s[0]; y <= s[1] && x <= xmax; ++y, ++x) {
-		if (!blocked([x, y])) {
-			console.log(x, y);
-			process.exit(1);
-		}
-	}
-	for (let y = s[1] + d + 1, x = s[0]; y > s[1] && x <= xmax; --y, ++x) {
-		if (!blocked([x, y])) {
-			console.log(x, y);
-			process.exit(1);
-		}
-	}
 }
 
+console.log(solve());
 console.log(tests);
