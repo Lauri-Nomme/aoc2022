@@ -61,19 +61,19 @@ for (let round = 0; round < 10; ++round) {
   }
 }
 
-let c1k = 1000;
-let c2k = 2000;
-let c3k = 3000;
+let c1k = 1000 % w;
+let c2k = 2000 % w;
+let c3k = 3000 % w;
 
-let i1k = i0 % w;
+let i1k = i0;
 while (c1k--) {
 	i1k = r[i1k];
 }
-let i2k = i0 % w;
+let i2k = i0;
 while (c2k--) {
 	i2k = r[i2k];
 }
-let i3k = i0 % w;
+let i3k = i0;
 while (c3k--) {
 	i3k = r[i3k];
 }
